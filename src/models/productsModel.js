@@ -40,8 +40,7 @@ const productsSchema = new mongoose.Schema({
   },
 
   productStatus: {
-    type: String,
-    enum: ["in production", "dicontinued"],
+    type: [{ type: String, enum: ["in production", "dicontinued"] }],
     default: ["in production"],
   },
 });

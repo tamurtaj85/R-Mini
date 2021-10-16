@@ -11,21 +11,31 @@ async function addProduct(req, res) {
       message: "Don't leave important fields empty!",
     });
 
-    const newProduct = await Product.create(req.body);
+  const newProduct = await Product.create(req.body);
 
-    return res.sendStatus(201,{Product: newProduct});
+  return res.status(201).json({ Product: newProduct });
 }
 
-function getAllProduct(req, res){
-    return res.sendStatus(200, Product.find({}));
+async function getAllProduct(req, res) {
+  return res.status(200).json(await Product.find({}));
 }
 
-function getOneProduct(req, res){
+async function getOneProduct(req, res) {
+  const { id } = req.params;
 
+  if (!id) return res.status(404).end();
+
+  return res.status(200).json(await Product.findById(id).exec());
 }
 
-function deleteProduct(req, res){
+async function deleteProduct(req, res) {
+  const { id } = req.params;
 
+  if (!id) return res.status(404).end();
+
+  await Product.findByIdAndDelete(id).exec();
+
+  return res.status(200).end();
 }
 
-export {addProduct, getAllProduct, getOneProduct, deleteProduct};
+export { addProduct, getAllProduct, getOneProduct, deleteProduct };

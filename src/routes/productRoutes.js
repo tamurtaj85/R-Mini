@@ -1,7 +1,7 @@
 export async function routes_Products(app) {
   const { controller_Products } = await import("../controllers/index.js");
 
-  app.post("/product", await controller_Products.addProduct);
+  app.post("/product", controller_Products.addProduct);
 
   app.get("/products", controller_Products.getAllProduct);
 
