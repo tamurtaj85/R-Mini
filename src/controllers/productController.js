@@ -7,13 +7,17 @@ async function addProduct(req, res) {
     !req.body.productQuantity ||
     !req.body.productBrand
   )
-    return res.sendStatus(400, {
+    return res.status(400).send({
       message: "Don't leave important fields empty!",
     });
 
-  const newProduct = await Product.create(req.body);
+  try {
+    const newProduct = await Product.create(req.body);
 
-  return res.status(201).json({ Product: newProduct });
+    return res.status(201).json({ Product: newProduct });
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
 }
 
 async function getAllProduct(req, res) {
