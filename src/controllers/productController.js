@@ -1,21 +1,18 @@
 import { Product } from "../models/index.js";
+import { productInputDataValidation } from "../validations/index.js";
 
 async function addProduct(req, res) {
-  if (
-    !req.body.productName ||
-    !req.body.productPrice ||
-    !req.body.productQuantity ||
-    !req.body.productBrand
-  )
-    return res.status(400).send({
-      message: "Don't leave important fields empty!",
-    });
-
   try {
+    await productInputDataValidation.productValidationSchema.validateAsync(
+      req.body,
+      { warnings: true }
+    );
+
     const newProduct = await Product.create(req.body);
 
     return res.status(201).json({ Product: newProduct });
   } catch (e) {
+    if (e.isJoi === true) res.status(422).send(e.message);
     res.status(500).send(e.message);
   }
 }

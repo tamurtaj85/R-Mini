@@ -6,32 +6,10 @@ import { PROCESS_TYPES } from "../utils/constants.js";
 
 // Creating the concerend schema
 const usersSchema = new mongoose.Schema({
-  fullName: {
-    type: String,
-    required: dbMessages.requiredFields("Fullname", PROCESS_TYPES.SIGN_UP),
-    trim: true,
-  },
-
-  email: {
-    type: String,
-    required: dbMessages.requiredFields("Email", PROCESS_TYPES.SIGN_UP),
-    trim: true,
-  },
-
-  password: {
-    type: String,
-    required: dbMessages.requiredFields("Password", PROCESS_TYPES.SIGN_UP),
-    trim: true,
-    minlength: 8,
-  },
-
-  pin: {
-    type: Number,
-    required: dbMessages.requiredFields("Pin", PROCESS_TYPES.SIGN_UP),
-    trim: true,
-    minlength: 4,
-  },
-
+  fullName: String,
+  email: String,
+  password: String,
+  pin: String,
   verified: Boolean,
 });
 

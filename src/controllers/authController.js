@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/index.js";
 import { JWT_SECRET, JWT_EXPIRY } from "../utils/constants.js";
 import { errorMessages } from "../utils/genericMessages.js";
+import { userInputDataValidation } from "../validations/index.js";
 
 function generateNewToken(user) {
   return jwt.sign({ id: user._id }, JWT_SECRET, {
@@ -27,9 +28,12 @@ async function signUp(req, res) {
 }
 
 async function signIn(req, res) {
-  if (!req.body.email || !req.body.password) return res.stats(400).end();
-
   try {
+    await userInputDataValidation.userValidationSchema_SignIn.validateAsync(
+      req.body,
+      { warnings: true }
+    );
+
     const user = await User.findOne({ email: req.body.email })
       // .select("email password")
       .exec();
@@ -45,22 +49,8 @@ async function signIn(req, res) {
     }
 
     res.status(200).send(user);
-
-    // const token = req.headers["x-access-token"];
-    // if (!token)
-    //   return res
-    //     .status(401)
-    //     .send({ auth: false, message: "No token provided." });
-
-    // jwt.verify(token, JWT_SECRET, function (err, decoded) {
-    //   if (err)
-    //     return res
-    //       .status(500)
-    //       .send({ auth: false, message: "Failed to authenticate token." });
-
-    //   res.status(200).send(decoded);
-    // });
   } catch (e) {
+    if (e.isJoi === true) res.status(422).send(e.message);
     res.status(500).send(e.message);
   }
 }

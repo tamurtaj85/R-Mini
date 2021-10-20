@@ -5,44 +5,17 @@ import { PROCESS_TYPES } from "../utils/constants.js";
 
 // Creating concerend schema
 const productsSchema = new mongoose.Schema({
-  productName: {
-    type: String,
-    required: dbMessages.requiredFields("Product Name", PROCESS_TYPES.LISTING),
-    trim: true,
-  },
+  productName: String,
 
-  productPrice: {
-    type: Number,
-    required: dbMessages.requiredFields("Product Price", PROCESS_TYPES.LISTING),
-    min: 0,
-    default: 0,
-  },
+  productPrice: Number,
 
-  productQuantity: {
-    type: Number,
-    required: dbMessages.requiredFields(
-      "Product Quantity",
-      PROCESS_TYPES.LISTING
-    ),
-    min: 0,
-    default: 0,
-  },
+  productQuantity: Number,
 
-  productBrand: {
-    type: String,
-    required: dbMessages.requiredFields("Product Brand", PROCESS_TYPES.LISTING),
-    trim: true,
-  },
+  productBrand: String,
 
-  productDescription: {
-    type: String,
-    trim: true,
-  },
+  productDescription: String,
 
-  productStatus: {
-    type: [{ type: String, enum: ["in production", "dicontinued"] }],
-    default: ["in production"],
-  },
+  productStatus: Array,
 });
 
 export const Product = mongoose.model("Product", productsSchema);
