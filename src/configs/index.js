@@ -1,2 +1,2 @@
-await import("./express.js");
-await import("./mongodb.js");
+import("./express.js");
+import("./mongodb.js");

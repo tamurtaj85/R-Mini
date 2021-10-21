@@ -1,6 +1,6 @@
-export async function routes_User(app) {
-  const { controller_Users } = await import("../controllers/index.js");
+import controller from "../controllers/index.js";
 
-  app.route("/users/:consumers").get(controller_Users.getAllUsers);
-  app.route("/users/:sales-agent").get(controller_Users.getAllSalesAgents);
+export function routes_User(app) {
+  app.get("/users/:consumers", controller.controller_User.getAllUsers);
+  app.get("/users/:sales-agent", controller.controller_User.getAllSalesAgents);
 }

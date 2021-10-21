@@ -4,24 +4,25 @@ const fullName = Joi.string().trim().required();
 const email = Joi.string().email().trim().required();
 const password = Joi.string()
   .trim()
-  .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
   .min(5)
   .max(15)
+  .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
   .required();
 
-const pin = Joi.string().required().length(4);
+const pin = Joi.string().length(4).required();
 const verified = Joi.bool();
 
-const userValidationSchema_SignIn = Joi.object({
+const schema_SignIn = Joi.object({
   email,
   password,
 });
 
-const userValidationSchema_SignUp = Joi.object({
+const schema_SignUp = Joi.object({
   fullName,
-  userValidationSchema_SignIn,
+  email,
+  password,
   pin,
   verified,
 });
 
-export { userValidationSchema_SignIn, userValidationSchema_SignUp };
+export default { schema_SignIn, schema_SignUp };

@@ -1,3 +1,5 @@
-export const { routes_Products } = await import("./productRoutes.js");
-export const { routes_User } = await import("./userRoutes.js");
-export const { routes_Auth } = await import("./authRoutes.js");
+import { routes_Products } from "./productRoutes.js";
+import { routes_User } from "./userRoutes.js";
+import { routes_Auth } from "./authRoutes.js";
+
+export default { routes_Auth, routes_User, routes_Products };

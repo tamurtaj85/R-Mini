@@ -1,14 +1,8 @@
-import { Product } from "../models/index.js";
-import { productInputDataValidation } from "../validations/index.js";
+import model from "../models/index.js";
 
 async function addProduct(req, res) {
   try {
-    await productInputDataValidation.productValidationSchema.validateAsync(
-      req.body,
-      { warnings: true }
-    );
-
-    const newProduct = await Product.create(req.body);
+    const newProduct = await model.Product.create(req.body);
 
     return res.status(201).json({ Product: newProduct });
   } catch (e) {
@@ -18,7 +12,7 @@ async function addProduct(req, res) {
 }
 
 async function getAllProduct(req, res) {
-  return res.status(200).json(await Product.find({}));
+  return res.status(200).json(await model.Product.find({}));
 }
 
 async function getOneProduct(req, res) {
@@ -26,7 +20,7 @@ async function getOneProduct(req, res) {
 
   if (!id) return res.status(404).end();
 
-  return res.status(200).json(await Product.findById(id).exec());
+  return res.status(200).json(await model.Product.findById(id).exec());
 }
 
 async function deleteProduct(req, res) {
@@ -39,4 +33,4 @@ async function deleteProduct(req, res) {
   return res.status(200).end();
 }
 
-export { addProduct, getAllProduct, getOneProduct, deleteProduct };
+export default { addProduct, getAllProduct, getOneProduct, deleteProduct };

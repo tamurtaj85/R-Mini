@@ -1,3 +1,5 @@
-export const { User } = await import("./usersModel.js");
-export const { Product } = await import("./productsModel.js");
-export const { Roles } = await import("./rolesModel.js");
+import { User } from "./usersModel.js";
+import { Product } from "./productsModel.js";
+import { Roles } from "./rolesModel.js";
+
+export default { User, Product, Roles };

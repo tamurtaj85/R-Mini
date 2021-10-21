@@ -9,5 +9,6 @@ export const errorMessages = {
     NOT_AUTHORIZED: "User is not authorized to access this resource!",
     WRONG_INFO: "Either email or password provided is wrong!",
     USER_NOT_FOUND: "No such user found!",
+    SOMETHING_WW: "Something went wrong!",
   },
 };

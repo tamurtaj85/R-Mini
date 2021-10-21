@@ -1,6 +1,21 @@
-export async function routes_Auth(app) {
-  const { controller_Auth } = await import("../controllers/index.js");
+import controller from "../controllers/index.js";
+import validationSchemas from "../validations/index.js";
+import { validator } from "../middleware/validatorMW.js";
 
-  app.route("/sign-up").post(controller_Auth.signUp);
-  app.route("/sign-in").get(controller_Auth.signIn);
+const options = { warnings: false };
+
+export function routes_Auth(app) {
+  app
+    .route("/sign-up")
+    .post(
+      validator(validationSchemas.userSchema.schema_SignUp, options),
+      controller.controller_Auth.signUp
+    );
+
+  app
+    .route("/sign-in")
+    .get(
+      validator(validationSchemas.userSchema.schema_SignIn, options),
+      controller.controller_Auth.signIn
+    );
 }

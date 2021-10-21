@@ -1,1 +1,1 @@
-await import("./src/configs/index.js");
+import("./src/configs/index.js");

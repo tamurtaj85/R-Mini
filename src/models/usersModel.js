@@ -1,8 +1,6 @@
 // Importing all the neccesary modules and
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { dbMessages } from "../utils/genericMessages.js";
-import { PROCESS_TYPES } from "../utils/constants.js";
 
 // Creating the concerend schema
 const usersSchema = new mongoose.Schema({

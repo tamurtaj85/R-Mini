@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { PORT } from "../utils/constants.js";
-import { routes_Products, routes_User, routes_Auth } from "../routes/index.js";
+import routes from "../routes/index.js";
 
 const app = express();
 
@@ -10,8 +10,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Applying routes to app
-await routes_Auth(app);
-await routes_User(app);
-await routes_Products(app);
+routes.routes_Auth(app);
+routes.routes_User(app);
+routes.routes_Products(app);
 
 app.listen(PORT);
+console.log("App is listening to the port @ http://localhost/" + PORT);

@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const productValidationSchema = Joi.object({
+export const productSchema = Joi.object({
   productName: Joi.string().trim().required(),
   productPrice: Joi.number().greater(0).required(),
   productQuantity: Joi.number().greater(0).required(),
@@ -10,5 +10,3 @@ const productValidationSchema = Joi.object({
     .items(Joi.string().valid("in production", "dicontinued"))
     .default("in production"),
 });
-
-export { productValidationSchema };

@@ -1,26 +1,29 @@
 import jwt from "jsonwebtoken";
-import { User } from "../models/index.js";
+import models from "../models/index.js";
 import { JWT_SECRET, JWT_EXPIRY } from "../utils/constants.js";
 import { errorMessages } from "../utils/genericMessages.js";
-import { userInputDataValidation } from "../validations/index.js";
 
-function generateNewToken(user) {
+function generateToken(user) {
   return jwt.sign({ id: user._id }, JWT_SECRET, {
     expiresIn: JWT_EXPIRY,
   });
 }
 
+async function verifyToken(token) {
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    if (err) return err;
+
+    return decoded;
+  });
+}
+
 async function signUp(req, res) {
-  if (!req.body.email || !req.body.password) return res.stats(400).end();
-
   try {
-    const newUser = await User.create(req.body);
-    const tokenKey = generateNewToken(newUser);
+    await models.User.create(req.body, (err, u) => {
+      if (err) res.status(500).send(errorMessages.userEM.SOMETHING_WW);
 
-    newUser.save((err) => {
-      if (err) res.send(err);
-
-      res.status(201).send({ userData: newUser, token: tokenKey, auth: true });
+      const tokenKey = generateToken(u);
+      res.status(201).send({ userData: u, token: tokenKey, auth: true });
     });
   } catch (e) {
     res.status(500).send(e.message);
@@ -29,14 +32,7 @@ async function signUp(req, res) {
 
 async function signIn(req, res) {
   try {
-    await userInputDataValidation.userValidationSchema_SignIn.validateAsync(
-      req.body,
-      { warnings: true }
-    );
-
-    const user = await User.findOne({ email: req.body.email })
-      // .select("email password")
-      .exec();
+    const user = await models.User.findOne({ email: req.body.email }).exec();
 
     if (!user) {
       return res.status(401).send(errorMessages.userEM.WRONG_INFO);
@@ -48,6 +44,8 @@ async function signIn(req, res) {
       return res.status(401).send(errorMessages.userEM.WRONG_INFO);
     }
 
+    console.log(await verifyToken(generateToken(user)));
+
     res.status(200).send(user);
   } catch (e) {
     if (e.isJoi === true) res.status(422).send(e.message);
@@ -55,4 +53,4 @@ async function signIn(req, res) {
   }
 }
 
-export { signUp, signIn };
+export default { signUp, signIn };

@@ -1,3 +1,5 @@
-export const controller_Products = await import("./productController.js");
-export const controller_Users = await import("./userController.js");
-export const controller_Auth = await import("./authController.js");
+import controller_Auth from "./authController.js";
+import controller_User from "./userController.js";
+import controller_Products from "./productController.js";
+
+export default { controller_Auth, controller_User, controller_Products };
