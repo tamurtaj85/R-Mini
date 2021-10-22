@@ -2,7 +2,7 @@ import controller from "../controllers/index.js";
 import validationSchemas from "../validations/index.js";
 import { validator } from "../middleware/validatorMW.js";
 
-const options = { warnings: false };
+const options = { warnings: true };
 
 export function routes_Auth(app) {
   app

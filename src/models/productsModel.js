@@ -14,6 +14,8 @@ const productsSchema = new mongoose.Schema({
   productDescription: String,
 
   productStatus: Array,
+
+  productIsDeleted: { type: Boolean, default: false },
 });
 
 export const Product = mongoose.model("Product", productsSchema);

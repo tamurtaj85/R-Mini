@@ -10,7 +10,7 @@ function generateToken(user) {
 }
 
 async function verifyToken(token) {
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+  await jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) return err;
 
     return decoded;
@@ -23,10 +23,10 @@ async function signUp(req, res) {
       if (err) res.status(500).send(errorMessages.userEM.SOMETHING_WW);
 
       const tokenKey = generateToken(u);
-      res.status(201).send({ userData: u, token: tokenKey, auth: true });
+      return res.status(201).send({ userData: u, token: tokenKey, auth: true });
     });
   } catch (e) {
-    res.status(500).send(e.message);
+    return res.status(500).send(e.message);
   }
 }
 
@@ -46,10 +46,9 @@ async function signIn(req, res) {
 
     console.log(await verifyToken(generateToken(user)));
 
-    res.status(200).send(user);
+    return res.status(200).send(user);
   } catch (e) {
-    if (e.isJoi === true) res.status(422).send(e.message);
-    res.status(500).send(e.message);
+    return res.status(500).send(e.message);
   }
 }
 

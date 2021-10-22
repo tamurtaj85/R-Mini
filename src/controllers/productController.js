@@ -1,4 +1,5 @@
 import model from "../models/index.js";
+import {errorMessages} from '../utils/genericMessages.js';
 
 async function addProduct(req, res) {
   try {
@@ -6,8 +7,7 @@ async function addProduct(req, res) {
 
     return res.status(201).json({ Product: newProduct });
   } catch (e) {
-    if (e.isJoi === true) res.status(422).send(e.message);
-    res.status(500).send(e.message);
+    return res.status(500).send(e.message);
   }
 }
 
@@ -28,9 +28,16 @@ async function deleteProduct(req, res) {
 
   if (!id) return res.status(404).end();
 
-  await Product.findByIdAndDelete(id).exec();
+  let data = await model.Product.findById(id).exec();
 
-  return res.status(200).end();
+  if (!data.productIsDeleted) {
+    data.productIsDeleted = true;
+    data.save();
+
+    return res.status(200).send(data);
+  } else return res.status(404).json(errorMessages.resourceEM.RES_NOT_FOUND);
+
+  // await Product.findByIdAndDelete(id).exec();
 }
 
 export default { addProduct, getAllProduct, getOneProduct, deleteProduct };

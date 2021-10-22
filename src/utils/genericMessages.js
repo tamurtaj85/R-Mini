@@ -11,4 +11,7 @@ export const errorMessages = {
     USER_NOT_FOUND: "No such user found!",
     SOMETHING_WW: "Something went wrong!",
   },
+  resourceEM:{
+    RES_NOT_FOUND: "Resource not found!",
+  }
 };

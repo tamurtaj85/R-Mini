@@ -7,7 +7,7 @@ const options = { warnings: true };
 export function routes_Products(app) {
   app.post(
     "/product",
-    // validator(validationSchemas.productSchema, options),
+    validator(validationSchemas.productSchema, options),
     controller.controller_Products.addProduct
   );
 

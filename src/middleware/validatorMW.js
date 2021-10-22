@@ -2,12 +2,18 @@ import validationSchemas from "../validations/index.js";
 
 // To use a middle ware with custom parameters, the syntax is as following:
 // only function expression is used for this purpose
-export const validator = (schema, options) => (req, res, next) => {
+export const validator = (schema, options) => async (req, res, next) => {
   try {
-    validationSchemas.validateInputData(schema, req.body, options);
-
+    const validatedData = await validationSchemas.validateInputData(
+      schema,
+      req.body,
+      options
+    );
+    
+    req.body = validatedData.value;
     next();
   } catch (e) {
-    res.status(422).send(e.message);
+    if (e.isJoi) return res.status(422).json(e.message);
+    return res.status(500).json(e.message);
   }
 };
