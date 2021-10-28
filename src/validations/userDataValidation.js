@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const fullName = Joi.string().trim().required();
+const fullName = Joi.string().strict().trim().required();
 const email = Joi.string().email().trim().required();
 const password = Joi.string()
   .trim()
@@ -9,7 +9,7 @@ const password = Joi.string()
   .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
   .required();
 
-const pin = Joi.string().length(4).required();
+const pin = Joi.string().pattern(new RegExp("[0-9]")).length(4).required();
 const verified = Joi.bool();
 
 const schema_SignIn = Joi.object({
