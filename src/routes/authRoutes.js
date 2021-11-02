@@ -1,21 +1,19 @@
 import controller from "../controllers/index.js";
 import validationSchemas from "../validations/index.js";
-import { validator } from "../middleware/validatorMW.js";
-
-const options = { warnings: true };
+import middleware from "../middleware/index.js";
 
 export function routes_Auth(app) {
   app
     .route("/sign-up")
     .post(
-      validator(validationSchemas.userSchema.schema_SignUp, options),
+      middleware.validator(validationSchemas.userSchema.schema_SignUp),
       controller.controller_Auth.signUp
     );
 
   app
     .route("/sign-in")
     .get(
-      validator(validationSchemas.userSchema.schema_SignIn, options),
+      middleware.validator(validationSchemas.userSchema.schema_SignIn),
       controller.controller_Auth.signIn
     );
 }

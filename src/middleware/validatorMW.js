@@ -19,7 +19,7 @@ import validationSchemas from "../validations/index.js";
 // };
 
 // It was basically a closure
-export function validator(schema, options) {
+export function validator(schema, options = { warnings: true }) {
   return async (req, res, next) => {
     try {
       const validatedData = await validationSchemas.validateInputData(

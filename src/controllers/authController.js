@@ -1,20 +1,17 @@
 import jwt from "jsonwebtoken";
 import models from "../models/index.js";
-import { JWT_SECRET, JWT_EXPIRY } from "../utils/constants.js";
+import { JWT_EXPIRY } from "../utils/constants.js";
 import { errorMessages } from "../utils/genericMessages.js";
 
 function generateToken(user) {
-  return jwt.sign({ id: user._id }, JWT_SECRET, {
+  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: JWT_EXPIRY,
   });
 }
 
 async function verifyToken(token) {
-  await jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err) return err;
-
-    return decoded;
-  });
+  const { id, iat, exp } = await jwt.verify(token, process.env.JWT_SECRET);
+  return { id, iat, exp };
 }
 
 async function signUp(req, res) {
@@ -35,21 +32,22 @@ async function signIn(req, res) {
     const user = await models.User.findOne({ email: req.body.email }).exec();
 
     if (!user) {
-      return res.status(401).send(errorMessages.userEM.WRONG_INFO);
+      return res.status(404).send(errorMessages.userEM.WRONG_INFO);
     }
 
     const match = await user.checkPassword(req.body.password);
 
     if (!match) {
-      return res.status(401).send(errorMessages.userEM.WRONG_INFO);
+      return res.status(400).send(errorMessages.userEM.WRONG_INFO);
     }
 
-    console.log(await verifyToken(generateToken(user)));
+    const userToken = generateToken(user);
+    const verifiedToken = await verifyToken(userToken);
 
-    return res.status(200).send(user);
+    return res.status(200).send([verifiedToken.id, userToken]);
   } catch (e) {
     return res.status(500).send(e.message);
   }
 }
 
-export default { signUp, signIn };
+export default { signUp, signIn, verifyToken };

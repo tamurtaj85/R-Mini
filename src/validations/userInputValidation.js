@@ -10,7 +10,7 @@ const password = Joi.string()
   .required();
 
 const pin = Joi.string().pattern(new RegExp("[0-9]")).length(4).required();
-const verified = Joi.bool();
+const verified = Joi.boolean().default(false);
 
 const schema_SignIn = Joi.object({
   email,

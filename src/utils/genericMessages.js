@@ -6,7 +6,8 @@ export const dbMessages = {
 
 export const errorMessages = {
   userEM: {
-    NOT_AUTHORIZED: "User is not authorized to access this resource!",
+    FORBIDDEN: "User is not authorized to access this resource!",
+    NOT_AUTHORIZED: "User is not authorized!",
     WRONG_INFO: "Either email or password provided is wrong!",
     USER_NOT_FOUND: "No such user found!",
     SOMETHING_WW: "Something went wrong!",

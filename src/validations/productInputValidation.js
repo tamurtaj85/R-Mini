@@ -6,7 +6,9 @@ export const productSchema = Joi.object({
   productQuantity: Joi.number().greater(0).required(),
   productBrand: Joi.string().trim().uppercase().required(),
   productDescription: Joi.string().trim().length(1500),
-  productStatus: Joi.array()
-    .items(Joi.string().valid("in production", "dicontinued"))
+  productStatus: Joi.string().strict()
+    .valid("in production", "dicontinued")
     .default("in production"),
+  productIsDeleted: Joi.boolean().default(false),
+  productCategory: Joi.string().alphanum().strict().required(),
 });

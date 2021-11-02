@@ -2,13 +2,16 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
+const Schema = mongoose.Schema;
+
 // Creating the concerend schema
-const usersSchema = new mongoose.Schema({
+const usersSchema = Schema({
   fullName: String,
   email: String,
   password: String,
   pin: String,
   verified: Boolean,
+  userRole: { type: Schema.Types.ObjectId, ref: "Roles" },
 });
 
 usersSchema.pre("save", function (next) {

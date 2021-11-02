@@ -1,21 +1,29 @@
 // Importing all the neccesary modules and
 import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 // Creating concerend schema
-const productsSchema = new mongoose.Schema({
-  productName: String,
+const productsSchema = Schema(
+  {
+    productName: String,
 
-  productPrice: Number,
+    productPrice: Number,
 
-  productQuantity: Number,
+    productQuantity: Number,
 
-  productBrand: String,
+    productBrand: String,
 
-  productDescription: String,
+    productDescription: String,
 
-  productStatus: Array,
+    productStatus: String,
 
-  productIsDeleted: { type: Boolean, default: false },
-});
+    productIsDeleted: Boolean,
+
+    productCategory: { type: Schema.Types.ObjectId, ref: "Categories" },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 export const Product = mongoose.model("Product", productsSchema);
