@@ -1,0 +1,165 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
+
+/*  */
+/* Global formatting */
+/*  */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 20px;
+  font-weight: 300;
+  font-family: "Lato", Arial, Helvetica, sans-serif;
+  background: linear-gradient(-45deg, #fa440f 25%, #ff6d1f 75%);
+  margin: 0;
+  height: 100vh;
+}
+
+.wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  background-color: #fff;
+  padding: 30px 15px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  min-width: 200px;
+}
+
+.content header {
+  text-align: center;
+  color: #ff6d1f;
+
+  font-size: 150%;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+button {
+  padding: 15px;
+  width: 150px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.social-login {
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+  /* display: flex; */
+  justify-content: center;
+}
+
+.social-login button {
+  /* /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  transition: background 0.5s;
+  /* -webkit-transition: background 0.5s; */
+}
+
+.social-login button:first-child {
+  margin-right: 10px;
+}
+
+.social-login button:hover {
+  background-color: rgb(241, 241, 241);
+}
+
+span {
+  font-size: 150%;
+  color: #ff6d1f;
+  margin-left: 5px;
+}
+
+.login-form {
+  padding: 5px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 310px;
+}
+
+input {
+  padding: 15px;
+  font-size: 13px;
+  border: 2px solid transparent;
+  background-color: #ff6d1f;
+  color: white;
+  border-radius: 50px;
+  transition: background-color 0.5s, border-color 0.5s;
+  /* -webkit-tranistion: background-color 0.5s, border-color 0.5s; */
+}
+
+input:focus {
+  outline: none;
+  background-color: transparent;
+  border-color: #fa440f;
+}
+
+label {
+  color: #ff6d1f;
+  font-size: 12px;
+  margin-bottom: 3px;
+  margin-left: 16px;
+}
+
+input::placeholder {
+  color: white;
+  transition: color 0.2s;
+}
+
+input:focus::placeholder {
+  color: #fa440f;
+}
+
+.input-group button {
+  background-color: #ff6d1f;
+  /* border: 2px solid #fa440f; */
+  color: white;
+  align-self: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  transition: background 0.5s, color 0.5s, border 0.25s;
+  /* -webkit-transition: background 0.5s, color 0.5s, border 0.25s; */
+}
+
+.input-group button:hover {
+  background-color: transparent;
+  color: #fa440f;
+  border-color: #fa440f;
+}
+
+footer {
+  padding-top: 15px;
+  text-align: center;
+}
+
+a {
+  color: #999;
+  text-decoration: none;
+  font-size: 100%;
+  transition: color 0.25s;
+}
+
+a:hover {
+  color: #fa440f;
+}

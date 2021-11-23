@@ -9,7 +9,16 @@ async function addParentCategory(req, res) {
 
     res.status(201).json(req.body);
   } catch (e) {
-    return res.json(e.message);
+    res.json(e.message);
+  }
+}
+
+async function getCategories(req, res) {
+  try {
+    const data = await models.Categories.find({}).exec();
+    res.status(200).json(data);
+  } catch (e) {
+    res.send(e.message);
   }
 }
 
@@ -21,10 +30,13 @@ async function getProductsInParentCategory(req, res) {
 
   try {
     // Search for the parent id in products collection and then display all the collections
-    
   } catch (e) {
-    return res.json(e.message);
+    res.json(e.message);
   }
 }
 
-export default { addParentCategory, getProductsInParentCategory };
+export default {
+  addParentCategory,
+  getCategories,
+  getProductsInParentCategory,
+};

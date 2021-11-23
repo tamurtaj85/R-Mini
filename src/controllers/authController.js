@@ -20,10 +20,10 @@ async function signUp(req, res) {
       if (err) res.status(500).send(errorMessages.userEM.SOMETHING_WW);
 
       const tokenKey = generateToken(u);
-      return res.status(201).send({ userData: u, token: tokenKey, auth: true });
+      res.status(201).send({ userData: u, token: tokenKey, auth: true });
     });
   } catch (e) {
-    return res.status(500).send(e.message);
+    res.status(500).send(e.message);
   }
 }
 
@@ -44,9 +44,9 @@ async function signIn(req, res) {
     const userToken = generateToken(user);
     const verifiedToken = await verifyToken(userToken);
 
-    return res.status(200).send([verifiedToken.id, userToken]);
+    res.status(200).send({ USER_ID: verifiedToken.id, USER_TOKEN: userToken });
   } catch (e) {
-    return res.status(500).send(e.message);
+    res.status(500).send(e.message);
   }
 }
 

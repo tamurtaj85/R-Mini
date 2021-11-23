@@ -12,7 +12,7 @@ export function routes_Auth(app) {
 
   app
     .route("/sign-in")
-    .get(
+    .post(
       middleware.validator(validationSchemas.userSchema.schema_SignIn),
       controller.controller_Auth.signIn
     );

@@ -3,7 +3,7 @@ import validationSchemas from "../validations/index.js";
 import middleware from "../middleware/index.js";
 
 export function routes_Products(app) {
-  app.use("/product?s", middleware.authenticateUser);
+  app.use("/product", middleware.authenticateUser);
 
   app.post(
     "/product",

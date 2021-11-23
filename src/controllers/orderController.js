@@ -14,9 +14,9 @@ async function placeOrder(req, res) {
       quantity: req.body.quantity,
     });
 
-    return res.status(201).send([newOrder, newOrderItems]);
+    res.status(201).send([newOrder, newOrderItems]);
   } catch (e) {
-    return res.json(e.message);
+    res.json(e.message);
   }
 }
 
@@ -30,9 +30,9 @@ async function updateOrder(req, res) {
     // Need to place logic here
     // order.updateOne(req.body);
 
-    return res.status(201).json(order);
+    res.status(201).json(order);
   } catch (e) {
-    return res.json(e.message);
+    res.json(e.message);
   }
 }
 
@@ -50,11 +50,9 @@ async function getOrderDetails(req, res) {
     const order = await models.Order.findById(orderItems.orderID).exec();
     const product = await models.Product.findById(orderItems.productID).exec();
 
-    return res
-      .status(200)
-      .json({ ORDER_DETAILS: [order, product, orderItems] });
+    res.status(200).json({ ORDER_DETAILS: [order, product, orderItems] });
   } catch (e) {
-    return res.json(e.message);
+    res.json(e.message);
   }
 }
 
@@ -65,9 +63,9 @@ async function deleteOrder(req, res) {
   try {
     const { orderID } = await models.OrderItems.findById(oID).exec();
 
-    return res.json(orderID);
+    res.json(orderID);
   } catch (e) {
-    return res.json(e.message);
+    res.json(e.message);
   }
 }
 

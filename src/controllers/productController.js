@@ -5,14 +5,14 @@ async function addProduct(req, res) {
   try {
     const newProduct = await models.Product.create(req.body);
 
-    return res.status(201).json({ Product: newProduct });
+    res.status(201).send({ Product: newProduct });
   } catch (e) {
-    return res.status(500).send(e.message);
+    res.status(500).send(e.message);
   }
 }
 
 async function getAllProduct(req, res) {
-  return res.status(200).json(await models.Product.find({}));
+  res.status(200).send(await models.Product.find({}));
 }
 
 async function updateProduct(req, res) {
@@ -25,10 +25,10 @@ async function updateProduct(req, res) {
       pID,
       req.body
     ).exec();
-    
-    return res.json(updatedProduct);
+
+    res.send(updatedProduct);
   } catch (e) {
-    res.json(e.message);
+    res.send(e.message);
   }
 }
 
@@ -37,7 +37,7 @@ async function getOneProduct(req, res) {
 
   if (!pID) return res.status(404).end();
 
-  return res.status(200).json(await models.Product.findByID(pID).exec());
+  res.status(200).json(await models.Product.findById(pID).exec());
 }
 
 async function deleteProduct(req, res) {
@@ -45,7 +45,7 @@ async function deleteProduct(req, res) {
 
   if (!pID) return res.status(404).end();
 
-  let data = await models.Product.findByID(pID).exec();
+  let data = await models.Product.findById(pID).exec();
 
   if (!data.productIsDeleted) {
     data.productIsDeleted = true;

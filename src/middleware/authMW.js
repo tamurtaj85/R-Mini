@@ -8,13 +8,13 @@ export async function authenticateUser(req, res, next) {
   //   const token = authHeader?.split(" ")[1];
   const token = authHeader;
 
-  if (!token) res.status(401).json("No token provided!");
+  if (!token) return res.status(401).json("No token provided!");
 
   try {
     const user = await controller.controller_Auth.verifyToken(token);
     req.user = user;
     next();
   } catch (e) {
-    return res.status(401).json(errorMessages.userEM.NOT_AUTHORIZED);
+    res.status(401).json(errorMessages.userEM.NOT_AUTHORIZED);
   }
 }
