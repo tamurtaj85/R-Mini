@@ -2,7 +2,7 @@ import controller from "../controllers/index.js";
 import { errorMessages } from "../utils/genericMessages.js";
 
 export async function authenticateUser(req, res, next) {
-  const authHeader = req.headers["auth-token-header"];
+  const authHeader = req.headers["authorization"];
 
   // Actual syntax for token: BEARER TOKEN
   //   const token = authHeader?.split(" ")[1];

@@ -7,6 +7,8 @@ const productsSchema = Schema(
   {
     productName: String,
 
+    productImg: String,
+
     productPrice: Number,
 
     productQuantity: Number,
