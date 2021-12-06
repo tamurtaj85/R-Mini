@@ -12,7 +12,7 @@ async function addProduct(req, res) {
 }
 
 async function getAllProduct(req, res) {
-  res.status(200).send(await models.Product.find({}));
+  res.status(200).send(await models.Product.find({ productIsDeleted: false }));
 }
 
 async function updateProduct(req, res) {
@@ -22,7 +22,7 @@ async function updateProduct(req, res) {
 
   try {
     const updatedProduct = await models.Product.findByIdAndUpdate(
-      pID,
+      pID.slice(1),
       req.body
     ).exec();
 
@@ -34,10 +34,10 @@ async function updateProduct(req, res) {
 
 async function getOneProduct(req, res) {
   const { pID } = req.params;
-
+  // console.log(pID.slice(1));
   if (!pID) return res.status(404).end();
 
-  res.status(200).json(await models.Product.findById(pID).exec());
+  res.status(200).json(await models.Product.findById(pID.slice(1)).exec());
 }
 
 async function deleteProduct(req, res) {
@@ -45,7 +45,7 @@ async function deleteProduct(req, res) {
 
   if (!pID) return res.status(404).end();
 
-  let data = await models.Product.findById(pID).exec();
+  let data = await models.Product.findById(pID.slice(1)).exec();
 
   if (!data.productIsDeleted) {
     data.productIsDeleted = true;

@@ -19,7 +19,10 @@ const productsSchema = Schema(
 
     productStatus: String,
 
-    productIsDeleted: Boolean,
+    productIsDeleted: {
+      type: Boolean,
+      default: false,
+    },
 
     productCategory: { type: Schema.Types.ObjectId, ref: "Categories" },
   },
