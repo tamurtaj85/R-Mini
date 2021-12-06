@@ -10,6 +10,7 @@ env.config();
 // Adding middleware upfront for every end point to parse the incomming request body to json
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.options("*", cors());
 app.use(cors());
 
 // // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
