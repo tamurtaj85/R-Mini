@@ -13,12 +13,6 @@ app.use(express.json());
 app.options("*", cors());
 app.use(cors());
 
-// // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
-// app.all("*", (req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-//   next();
-// });
-
 // Applying routes to app
 routes.routes_Auth(app);
 routes.routes_User(app);

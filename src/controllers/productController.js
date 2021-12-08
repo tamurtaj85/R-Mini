@@ -40,6 +40,16 @@ async function getOneProduct(req, res) {
   res.status(200).json(await models.Product.findById(pID.slice(1)).exec());
 }
 
+async function getProductsByCategory(req, res) {
+  const { cID } = req.params;
+
+  if (!cID) return res.status(404).end();
+
+  res
+    .status(200)
+    .json(await models.Product.find({ productCategory: cID.slice(1) }).exec());
+}
+
 async function deleteProduct(req, res) {
   const { pID } = req.params;
 
@@ -62,5 +72,6 @@ export default {
   getAllProduct,
   updateProduct,
   getOneProduct,
+  getProductsByCategory,
   deleteProduct,
 };

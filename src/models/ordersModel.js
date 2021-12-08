@@ -9,12 +9,11 @@ const orderSchema = Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    
+
     orderType: [
       {
         type: String,
-        enum: ["organic", "in-organic"],
-        default: ["organic"],
+        default: "Organic",
       },
     ],
   },

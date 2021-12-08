@@ -18,4 +18,9 @@ export function routes_Products(app) {
     .put(controller.controller_Products.updateProduct)
     .get(controller.controller_Products.getOneProduct)
     .delete(controller.controller_Products.deleteProduct);
+
+  app.get(
+    "/products/category/:cID",
+    controller.controller_Products.getProductsByCategory
+  );
 }
