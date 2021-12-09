@@ -10,12 +10,10 @@ const orderSchema = Schema(
       ref: "User",
     },
 
-    orderType: [
-      {
-        type: String,
-        default: "Organic",
-      },
-    ],
+    orderType: {
+      type: String,
+      default: "Organic",
+    },
   },
   {
     timestamps: true,

@@ -6,6 +6,8 @@ export function routes_User(app) {
 
   app.get("/users", controller.controller_User.getAllUsers);
 
+  app.get("/user/:uID", controller.controller_User.getUserByID);
+
   app.get("/users/consumers", controller.controller_User.getAllConsumers);
 
   app.get("/users/sales-agent", controller.controller_User.getAllSalesAgents);

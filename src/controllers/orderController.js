@@ -20,6 +20,17 @@ async function placeOrder(req, res) {
   }
 }
 
+async function getAllOrders(req, res) {
+  try {
+    const orders = await models.Order.find({}).exec();
+    const orderItems = await models.OrderItems.find({}).exec();
+
+    res.status(200).json([orders, orderItems]);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 async function updateOrder(req, res) {
   const { oID } = req.params;
 
@@ -69,4 +80,10 @@ async function deleteOrder(req, res) {
   }
 }
 
-export default { placeOrder, updateOrder, getOrderDetails, deleteOrder };
+export default {
+  placeOrder,
+  getAllOrders,
+  updateOrder,
+  getOrderDetails,
+  deleteOrder,
+};
