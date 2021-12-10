@@ -45,9 +45,15 @@ async function getProductsByCategory(req, res) {
 
   if (!cID) return res.status(404).end();
 
-  res
-    .status(200)
-    .json(await models.Product.find({ productCategory: cID.slice(1) }).exec());
+  try {
+    const products = await models.Product.find({
+      productCategory: cID.slice(1),
+    }).exec();
+
+    res.status(200).json({ numberOfProducts: products.length, products });
+  } catch (error) {
+    console.error(error.message);
+  }
 }
 
 async function deleteProduct(req, res) {

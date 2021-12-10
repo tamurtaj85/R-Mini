@@ -9,7 +9,7 @@ async function addParentCategory(req, res) {
 
     res.status(201).json(req.body);
   } catch (e) {
-    res.json(e.message);
+    res.send(e.message);
   }
 }
 
@@ -22,21 +22,28 @@ async function getCategories(req, res) {
   }
 }
 
-async function getProductsInParentCategory(req, res) {
-  const { pc_Id } = req.params;
-
-  if (!pc_Id)
-    return res.status(400).json("No id for parent category is provided!");
-
+async function getProductsPerCategory(req, res) {
   try {
-    // Search for the parent id in products collection and then display all the collections
+    const categoryIDs = await models.Categories.find({}).select("_id");
+
+    const numberOfProducts = await Promise.all(
+      categoryIDs.map(async (category) => {
+        const products = await models.Product.find({
+          productCategory: category._id,
+        });
+        // console.log(products.length);
+        return products.length;
+      })
+    );
+
+    res.status(200).json(numberOfProducts);
   } catch (e) {
-    res.json(e.message);
+    res.send(e.message);
   }
 }
 
 export default {
   addParentCategory,
   getCategories,
-  getProductsInParentCategory,
+  getProductsPerCategory,
 };
