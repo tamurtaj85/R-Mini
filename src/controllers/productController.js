@@ -37,7 +37,11 @@ async function getOneProduct(req, res) {
   // console.log(pID.slice(1));
   if (!pID) return res.status(404).end();
 
-  res.status(200).json(await models.Product.findById(pID.slice(1)).exec());
+  try {
+    res.status(200).json(await models.Product.findById(pID.slice(1)).exec());
+  } catch (error) {
+    res.send(error.message);
+  }
 }
 
 async function getProductsByCategory(req, res) {
@@ -61,16 +65,18 @@ async function deleteProduct(req, res) {
 
   if (!pID) return res.status(404).end();
 
-  let data = await models.Product.findById(pID.slice(1)).exec();
+  try {
+    let data = await models.Product.findById(pID.slice(1)).exec();
 
-  if (!data.productIsDeleted) {
-    data.productIsDeleted = true;
-    data.save();
+    if (!data.productIsDeleted) {
+      data.productIsDeleted = true;
+      data.save();
 
-    return res.status(200).send(data);
-  } else return res.status(404).json(errorMessages.resourceEM.RES_NOT_FOUND);
-
-  // await Product.findBypIDAndDelete(pID).exec();
+      return res.status(200).send(data);
+    } else return res.status(404).json(errorMessages.resourceEM.RES_NOT_FOUND);
+  } catch (error) {
+    res.send(error.message);
+  }
 }
 
 export default {

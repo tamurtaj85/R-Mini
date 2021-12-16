@@ -6,7 +6,10 @@ export function routes_User(app) {
 
   app.get("/users", controller.controller_User.getAllUsers);
 
-  app.get("/user/:uID", controller.controller_User.getUserByID);
+  app
+    .route("/user/:uID")
+    .get(controller.controller_User.getUserByID)
+    .put(controller.controller_User.updateUserInfo);
 
   app.get("/users/consumers", controller.controller_User.getAllConsumers);
 

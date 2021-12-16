@@ -10,9 +10,34 @@ async function getUserByID(req, res) {
 
   if (!uID) res.status(404).send("No user ID provided");
 
-  res
-    .status(200)
-    .json(await models.User.findById(uID).select("id fullName email verified"));
+  try {
+    res
+      .status(200)
+      .json(
+        await models.User.findById(uID.slice(1)).select(
+          "id fullName email verified"
+        )
+      );
+  } catch (error) {
+    res.send(error.message);
+  }
+}
+
+async function updateUserInfo(req, res) {
+  const { uID } = req.params;
+
+  if (!uID) res.status(404).send("No user ID provided");
+
+  try {
+    const updatedInfo = await models.User.findByIdAndUpdate(
+      uID.slice(1),
+      req.body
+    ).exec();
+
+    res.status(201).json(updatedInfo);
+  } catch (error) {
+    res.send(error.message);
+  }
 }
 
 async function getAllConsumers(req, res) {
@@ -25,4 +50,10 @@ async function getAllSalesAgents(req, res) {
   res.status(200).json(await models.User.findById());
 }
 
-export default { getAllUsers, getUserByID, getAllConsumers, getAllSalesAgents };
+export default {
+  getAllUsers,
+  getUserByID,
+  updateUserInfo,
+  getAllConsumers,
+  getAllSalesAgents,
+};

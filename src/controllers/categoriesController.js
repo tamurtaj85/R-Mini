@@ -5,9 +5,9 @@ async function addParentCategory(req, res) {
     return res.status(400).json("Could not leave parent category empty!");
 
   try {
-    await models.Categories.create(req.body);
+    const category = await models.Categories.create(req.body);
 
-    res.status(201).json(req.body);
+    res.status(201).json(category);
   } catch (e) {
     res.send(e.message);
   }

@@ -37,11 +37,12 @@ async function updateOrder(req, res) {
   if (!oID) return res.status(400).json("No ORDER ID provided!");
 
   try {
-    const order = await models.OrderItems.findById(oID).exec();
+    console.log(req.body);
+    // const order = await models.OrderItems.findById(oID).exec();
     // Need to place logic here
     // order.updateOne(req.body);
 
-    res.status(201).json(order);
+    res.status(201).json("order");
   } catch (e) {
     res.json(e.message);
   }
@@ -53,7 +54,7 @@ async function getOrderDetails(req, res) {
   if (!oID) return res.status(400).json("No ORDER ID provided!");
 
   try {
-    const orderItems = await models.OrderItems.findById(oID).exec();
+    const orderItems = await models.OrderItems.findById(oID.slice(1)).exec();
 
     if (!orderItems)
       return res.status(404).json("No order found against this ID!");

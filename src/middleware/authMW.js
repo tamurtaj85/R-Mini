@@ -8,7 +8,12 @@ export async function authenticateUser(req, res, next) {
   //   const token = authHeader?.split(" ")[1];
   const token = authHeader;
 
-  if (!token) return res.status(401).json("No token provided!");
+  if (!token)
+    return res
+      .status(401)
+      .send(
+        "You are either not signed in or unauthorized to perform this action!r"
+      );
 
   try {
     const user = await controller.controller_Auth.verifyToken(token);
