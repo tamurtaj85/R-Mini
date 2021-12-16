@@ -7,6 +7,8 @@ const productsSchema = Schema(
   {
     productName: String,
 
+    productImg: String,
+
     productPrice: Number,
 
     productQuantity: Number,
@@ -17,7 +19,10 @@ const productsSchema = Schema(
 
     productStatus: String,
 
-    productIsDeleted: Boolean,
+    productIsDeleted: {
+      type: Boolean,
+      default: false,
+    },
 
     productCategory: { type: Schema.Types.ObjectId, ref: "Categories" },
   },

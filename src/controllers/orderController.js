@@ -14,9 +14,20 @@ async function placeOrder(req, res) {
       quantity: req.body.quantity,
     });
 
-    return res.status(201).send([newOrder, newOrderItems]);
+    res.status(201).send([newOrder, newOrderItems]);
   } catch (e) {
-    return res.json(e.message);
+    res.json(e.message);
+  }
+}
+
+async function getAllOrders(req, res) {
+  try {
+    const orders = await models.Order.find({}).exec();
+    const orderItems = await models.OrderItems.find({}).exec();
+
+    res.status(200).json([orders, orderItems]);
+  } catch (error) {
+    console.error(error.message);
   }
 }
 
@@ -26,13 +37,14 @@ async function updateOrder(req, res) {
   if (!oID) return res.status(400).json("No ORDER ID provided!");
 
   try {
-    const order = await models.OrderItems.findById(oID).exec();
+    console.log(req.body);
+    // const order = await models.OrderItems.findById(oID).exec();
     // Need to place logic here
     // order.updateOne(req.body);
 
-    return res.status(201).json(order);
+    res.status(201).json("order");
   } catch (e) {
-    return res.json(e.message);
+    res.json(e.message);
   }
 }
 
@@ -42,7 +54,7 @@ async function getOrderDetails(req, res) {
   if (!oID) return res.status(400).json("No ORDER ID provided!");
 
   try {
-    const orderItems = await models.OrderItems.findById(oID).exec();
+    const orderItems = await models.OrderItems.findById(oID.slice(1)).exec();
 
     if (!orderItems)
       return res.status(404).json("No order found against this ID!");
@@ -50,11 +62,9 @@ async function getOrderDetails(req, res) {
     const order = await models.Order.findById(orderItems.orderID).exec();
     const product = await models.Product.findById(orderItems.productID).exec();
 
-    return res
-      .status(200)
-      .json({ ORDER_DETAILS: [order, product, orderItems] });
+    res.status(200).json({ ORDER_DETAILS: [order, product, orderItems] });
   } catch (e) {
-    return res.json(e.message);
+    res.json(e.message);
   }
 }
 
@@ -65,10 +75,16 @@ async function deleteOrder(req, res) {
   try {
     const { orderID } = await models.OrderItems.findById(oID).exec();
 
-    return res.json(orderID);
+    res.json(orderID);
   } catch (e) {
-    return res.json(e.message);
+    res.json(e.message);
   }
 }
 
-export default { placeOrder, updateOrder, getOrderDetails, deleteOrder };
+export default {
+  placeOrder,
+  getAllOrders,
+  updateOrder,
+  getOrderDetails,
+  deleteOrder,
+};

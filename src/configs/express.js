@@ -2,6 +2,7 @@ import express from "express";
 import env from "dotenv";
 import { PORT } from "../utils/constants.js";
 import routes from "../routes/index.js";
+import cors from "cors";
 
 const app = express();
 env.config();
@@ -9,6 +10,8 @@ env.config();
 // Adding middleware upfront for every end point to parse the incomming request body to json
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.options("*", cors());
+app.use(cors());
 
 // Applying routes to app
 routes.routes_Auth(app);
@@ -18,4 +21,4 @@ routes.routes_Products(app);
 routes.routes_Order(app);
 
 app.listen(PORT);
-console.log("App is listening to the port @ http://localhost/" + PORT);
+console.log("App is listening to the port @ http://localhost:" + PORT);

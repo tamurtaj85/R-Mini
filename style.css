@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.hero {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.4),
+    url("./src/imgs/retailo.png")
+  );
+  background-position: center;
+  background-size: contain;
+  position: absolute;
+}
+
+.form-box {
+  width: 380px;
+  height: 480px;
+  margin: 6% auto;
+  background: lightgray;
+  padding: 5px;
+  /* border: 1px solid black;
+  border-radius: 200px; */
+}
+
+.button-box {
+  width: 220px;
+  margin: 35px auto;
+  position: relative;
+  box-shadow: lightcoral 0 0 20px 1px;
+  border-radius: 30px;
+}
+
+.toggle-btn {
+  padding: 10px 30px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  /* outline: none; */
+  position: relative;
+}
+
+#btn {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 110px;
+  height: 100%;
+  background: linear-gradient(to right, orange 25%, red);
+  border-radius: 30px;
+  transition: 0.5s;
+}
+
+.input-group {
+  top: 175px;
+  width: 280px;
+  position: absolute;
+  transition: 0.5s;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 40px;
+  border: 0;
+  border-radius: 20px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  display: block;
+  margin: auto 50px;
+  background: linear-gradient(to right, orange 25%, red);
+  border: 0;
+  border-radius: 30px;
+  position: relative;
+}
+
+.checkbox {
+  margin: 20px 40px;
+}
+
+span {
+  color: crimson;
+  font-size: 16px;
+}
+
+.sign-in {
+  left: 580px;
+}
+
+.sign-up {
+  left: 950px;
+}

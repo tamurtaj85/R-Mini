@@ -11,7 +11,8 @@ export function routes_Order(app) {
     .post(
       middleware.validator(validationSchemas.orderSchema),
       controller.controller_Orders.placeOrder
-    );
+    )
+    .get(controller.controller_Orders.getAllOrders);
 
   // Update order,
   // Get order detalis, also data from orderItems

@@ -3,7 +3,7 @@ import validationSchemas from "../validations/index.js";
 import middleware from "../middleware/index.js";
 
 export function routes_Products(app) {
-  app.use("/product?s", middleware.authenticateUser);
+  app.use("/product", middleware.authenticateUser);
 
   app.post(
     "/product",
@@ -18,4 +18,9 @@ export function routes_Products(app) {
     .put(controller.controller_Products.updateProduct)
     .get(controller.controller_Products.getOneProduct)
     .delete(controller.controller_Products.deleteProduct);
+
+  app.get(
+    "/products/category/:cID",
+    controller.controller_Products.getProductsByCategory
+  );
 }

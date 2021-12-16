@@ -32,7 +32,7 @@ export function validator(schema, options = { warnings: true }) {
       next();
     } catch (e) {
       if (e.isJoi) return res.status(422).json(e.message);
-      return res.status(500).json(e.message);
+      res.status(500).json(e.message);
     }
   };
 }

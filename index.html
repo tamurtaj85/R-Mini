@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>R mini</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="hero">
+      <div class="form-box">
+        <div class="button-box">
+          <div id="btn"></div>
+          <button type="button" class="toggle-btn" onclick="signIn()">
+            Sign In
+          </button>
+          <button type="button" class="toggle-btn" onclick="signUp()">
+            Sign Up
+          </button>
+        </div>
+
+        <form class="input-group sign-in">
+          <input type="text" class="input-field" placeholder="Email" required />
+          <input
+            type="password"
+            class="input-field"
+            placeholder="Password"
+            required
+          />
+          <input type="checkbox" class="checkbox" /><span>Remember Me</span>
+          <input type="submit" class="submit-btn" value="Sign In" />
+        </form>
+
+        <form class="input-group sign-up">
+          <input
+            type="text"
+            class="input-field"
+            placeholder="Full Name"
+            required
+          />
+          <input type="text" class="input-field" placeholder="Email" required />
+          <input
+            type="password"
+            class="input-field"
+            placeholder="Password"
+            required
+          />
+          <input type="number" class="input-field" placeholder="Pin" />
+          <input type="submit" class="submit-btn" value="Sign Up" />
+        </form>
+      </div>
+    </div>
+    <script>
+      const signInForm = document.querySelector(".sign-in");
+      const signUpForm = document.querySelector(".sign-up");
+      const authBtns = document.getElementById("btn");
+
+      function signUp() {
+        signInForm.style.left = "-10px";
+        signUpForm.style.left = "580px";
+        authBtns.style.left = "110px";
+      }
+
+      function signIn() {
+        signInForm.style.left = "580px";
+        signUpForm.style.left = "950px";
+        authBtns.style.left = "0px";
+      }
+
+
+    </script>
+  </body>
+</html>

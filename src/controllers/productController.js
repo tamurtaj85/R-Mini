@@ -5,14 +5,14 @@ async function addProduct(req, res) {
   try {
     const newProduct = await models.Product.create(req.body);
 
-    return res.status(201).json({ Product: newProduct });
+    res.status(201).send({ Product: newProduct });
   } catch (e) {
-    return res.status(500).send(e.message);
+    res.status(500).send(e.message);
   }
 }
 
 async function getAllProduct(req, res) {
-  return res.status(200).json(await models.Product.find({}));
+  res.status(200).send(await models.Product.find({ productIsDeleted: false }));
 }
 
 async function updateProduct(req, res) {
@@ -22,22 +22,42 @@ async function updateProduct(req, res) {
 
   try {
     const updatedProduct = await models.Product.findByIdAndUpdate(
-      pID,
+      pID.slice(1),
       req.body
     ).exec();
-    
-    return res.json(updatedProduct);
+
+    res.send(updatedProduct);
   } catch (e) {
-    res.json(e.message);
+    res.send(e.message);
   }
 }
 
 async function getOneProduct(req, res) {
   const { pID } = req.params;
-
+  // console.log(pID.slice(1));
   if (!pID) return res.status(404).end();
 
-  return res.status(200).json(await models.Product.findByID(pID).exec());
+  try {
+    res.status(200).json(await models.Product.findById(pID.slice(1)).exec());
+  } catch (error) {
+    res.send(error.message);
+  }
+}
+
+async function getProductsByCategory(req, res) {
+  const { cID } = req.params;
+
+  if (!cID) return res.status(404).end();
+
+  try {
+    const products = await models.Product.find({
+      productCategory: cID.slice(1),
+    }).exec();
+
+    res.status(200).json({ numberOfProducts: products.length, products });
+  } catch (error) {
+    console.error(error.message);
+  }
 }
 
 async function deleteProduct(req, res) {
@@ -45,16 +65,18 @@ async function deleteProduct(req, res) {
 
   if (!pID) return res.status(404).end();
 
-  let data = await models.Product.findByID(pID).exec();
+  try {
+    let data = await models.Product.findById(pID.slice(1)).exec();
 
-  if (!data.productIsDeleted) {
-    data.productIsDeleted = true;
-    data.save();
+    if (!data.productIsDeleted) {
+      data.productIsDeleted = true;
+      data.save();
 
-    return res.status(200).send(data);
-  } else return res.status(404).json(errorMessages.resourceEM.RES_NOT_FOUND);
-
-  // await Product.findBypIDAndDelete(pID).exec();
+      return res.status(200).send(data);
+    } else return res.status(404).json(errorMessages.resourceEM.RES_NOT_FOUND);
+  } catch (error) {
+    res.send(error.message);
+  }
 }
 
 export default {
@@ -62,5 +84,6 @@ export default {
   getAllProduct,
   updateProduct,
   getOneProduct,
+  getProductsByCategory,
   deleteProduct,
 };
